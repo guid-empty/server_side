@@ -9,6 +9,7 @@ void main(List<String> args) async {
   final router = Router()
     ..get('/', _rootHandler)
     ..get('/json', _jsonHandler)
+    ..get('/fibonacci', _fibonacciHandler)
     ..get('/echo/<message>', _echoHandler);
 
   final pipeline = Pipeline().addMiddleware(logRequests()).addHandler(router);
@@ -17,12 +18,14 @@ void main(List<String> args) async {
 }
 
 Future<Response> _echoHandler(Request request) async {
-  await _hardQuery();
   final message = request.params['message'];
   return Response.ok('$message\n');
 }
 
-Future<void> _hardQuery() => Future.delayed(Duration(seconds: 5));
+int _fibonacci(int n) => n <= 2 ? 1 : _fibonacci(n - 2) + _fibonacci(n - 1);
+
+Future<Response> _fibonacciHandler(Request request) async =>
+    Response.ok(_fibonacci(32).toString());
 
 Future<Response> _jsonHandler(Request request) async {
   return Response.ok(

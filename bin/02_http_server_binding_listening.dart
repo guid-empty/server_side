@@ -2,7 +2,10 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
-Future<void> main(List<String> args) async {
+///
+/// hello/<int> parsing scheme
+///
+Future<void> main() async {
   final server = await HttpServer.bind('0.0.0.0', 8080);
   server.listen((request) async {
     final uri = request.requestedUri;
@@ -11,11 +14,12 @@ Future<void> main(List<String> args) async {
       if (segments[0] != 'hello') {
         request.response.statusCode = HttpStatus.badRequest;
       } else {
-        int? id = segments.length > 1 ? int.tryParse(segments[1]) : null;
-        String method = request.method;
-        log('Request: $method[$id]');
+        final id = segments.length > 1 ? int.tryParse(segments[1]) : null;
 
-        final response = {'body': 'data'};
+        final response = {
+          'body': 'data',
+          'your id is': id,
+        };
         request.response.headers.add(
           HttpHeaders.contentTypeHeader,
           'application/json',

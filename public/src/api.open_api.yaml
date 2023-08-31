@@ -1,0 +1,68 @@
+openapi: 3.0.0
+info:
+  title: OpenApiService Demo Generation
+  description: OpenApiService Demo Description
+  termsOfService: Terms of use
+  version: 1.0.0
+servers:
+  - url: "localhost:8080"
+    description: There is openapi server used for Demo only
+paths:
+  /hello/<message>:
+    get:
+      tags:
+        - ApiService
+      summary: hello
+      operationId: hello
+      parameters:
+        - name: message
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: "Operation completed!"
+  /json:
+    get:
+      tags:
+        - OpenApiService
+      summary: json
+      operationId: json
+      responses:
+        200:
+          description: "Operation completed!"
+  /echo/<message>:
+    get:
+      tags:
+        - OpenApiService
+      summary: echo
+      operationId: echo
+      parameters:
+        - name: message
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: "Operation completed!"
+  /test/<message>:
+    get:
+      tags:
+        - OpenApiService
+      summary: test
+      operationId: test
+      parameters:
+        - name: message
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: "Operation completed!"
+components: { }
+tags:
+  - name: ApiService
+  - name: OpenApiService

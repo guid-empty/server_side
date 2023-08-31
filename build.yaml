@@ -1,0 +1,44 @@
+targets:
+  $default:
+    builders:
+      shelf_router_generator:shelf_router:
+        enabled: true
+
+      shelf_open_api_generator:shelf_routing:
+        enabled: false
+
+      shelf_open_api_generator:shelf_open_api_generator:
+        options:
+          include_routes_in: 'lib/src/**_service.dart'
+          info_title: 'OpenApiService Demo Generation'
+          info_description: 'OpenApiService Demo Description'
+          info_terms_of_service: 'Terms of use'
+          info_version: '1.0.0'
+          server_url: 'localhost:8080'
+          server_description: 'There is openapi server used for Demo only'
+
+builders:
+  shelf_router_generator:shelf_router:
+    import: "package:shelf_router_generator/builder.dart"
+    builder_factories: ["shelfRouter"]
+    build_extensions: {".dart": [".shelf_router.g.part"]}
+    auto_apply: dependents
+    build_to: cache
+    applies_builders: ["source_gen|combining_builder"]
+
+  shelf_open_api_generator:shelf_open_api_generator:
+    import: "package:shelf_open_api_generator/shelf_open_api_generator.dart"
+    builder_factories: [ 'buildOpenApi' ]
+    build_extensions: { 'lib/src/{{file}}.open_api.dart': [ 'public/{{file}}.open_api.yaml' ] }
+    auto_apply: root_package
+    build_to: source
+    applies_builders: ["source_gen|combining_builder"]
+
+  shelf_open_api_generator:shelf_routing:
+    import: "package:shelf_open_api_generator/shelf_routing_generator.dart"
+    builder_factories: [ 'buildRouting' ]
+    build_extensions: { '.dart': [ '.routing.dart' ] }
+    auto_apply: dependents
+    build_to: source
+
+

@@ -2,7 +2,10 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
-Future<void> main(List<String> args) async {
+///
+/// just Hello part in path
+///
+Future<void> main() async {
   final server = await HttpServer.bind('0.0.0.0', 8080);
   await for (final request in server) {
     final uri = request.requestedUri;
@@ -11,10 +14,6 @@ Future<void> main(List<String> args) async {
       if (segments[0] != 'hello') {
         request.response.statusCode = HttpStatus.badRequest;
       } else {
-        int? id = segments.length > 1 ? int.tryParse(segments[1]) : null;
-        String method = request.method;
-        log('Request: $method[$id]');
-
         final response = {'body': 'data'};
         request.response.write(jsonEncode(response));
       }

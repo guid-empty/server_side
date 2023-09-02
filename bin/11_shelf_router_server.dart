@@ -5,6 +5,11 @@ import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';
 import 'package:shelf_router/shelf_router.dart';
 
+///
+/// http://localhost:8080/json
+/// http://localhost:8080/echo/somemessage
+/// http://localhost:8080/echo/somemessage/error
+///
 Future<void> main() async {
   final router = Router()
     ..get('/json', _jsonHandler)

@@ -6,7 +6,7 @@ import 'dart:io';
 /// hello/<int> parsing scheme
 ///
 Future<void> main() async {
-  final server = await HttpServer.bind('0.0.0.0', 8080);
+  final server = await HttpServer.bind(InternetAddress.anyIPv4, 8080);
   server.listen((request) async {
     final uri = request.requestedUri;
     final segments = uri.pathSegments;

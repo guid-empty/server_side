@@ -8,14 +8,40 @@ servers:
   - url: "localhost:8080"
     description: There is openapi server used for Demo only
 paths:
-  /hello/<message>:
+  /order:
     get:
       tags:
-        - ApiService
-      summary: hello
-      operationId: hello
+        - OrderController
+      summary: Возвращает полный список заказов
+      description: "Возвращает 200, если все ок, в противном случае вернет код ошибки"
+      operationId: getOrderList
+      responses:
+        200:
+          description: "Operation completed!"
+    post:
+      tags:
+        - OrderController
+      summary: "Создает заказ на основе пепреданного сообщения [CreateOrderQueryDto]"
+      description: "Возвращает 200, если все ок, в противном случае вернет код ошибки"
+      operationId: createOrder
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateOrderQueryDto"
+      responses:
+        200:
+          description: "Operation completed!"
+  /order/<orderId>:
+    put:
+      tags:
+        - OrderController
+      summary: "Обновляет заказ по id, указанный в схеме маршрута через [orderId]"
+      description: "Возвращает 200, если все ок, в противном случае вернет код ошибки"
+      operationId: updateOrder
       parameters:
-        - name: message
+        - name: orderId
           in: path
           required: true
           schema:
@@ -23,23 +49,14 @@ paths:
       responses:
         200:
           description: "Operation completed!"
-  /json:
-    get:
+    delete:
       tags:
-        - OpenApiService
-      summary: json
-      operationId: json
-      responses:
-        200:
-          description: "Operation completed!"
-  /echo/<message>:
-    get:
-      tags:
-        - OpenApiService
-      summary: echo
-      operationId: echo
+        - OrderController
+      summary: "Удаляет заказ по id, указанный в схеме маршрута через [orderId]"
+      description: "Возвращает 200, если все ок, в противном случае вернет код ошибки"
+      operationId: deleteOrder
       parameters:
-        - name: message
+        - name: orderId
           in: path
           required: true
           schema:
@@ -47,14 +64,34 @@ paths:
       responses:
         200:
           description: "Operation completed!"
-  /test/<message>:
+  /user:
     get:
       tags:
-        - OpenApiService
-      summary: test
-      operationId: test
+        - UserController
+      summary: Возвращает полный список пользователей
+      description: "Возвращает 200, если все ок, в противном случае вернет код ошибки"
+      operationId: getUserList
+      responses:
+        200:
+          description: "Operation completed!"
+    post:
+      tags:
+        - UserController
+      summary: "Создает заказа на основе пепреданного сообщения [CreateUserQueryDto]"
+      description: "Возвращает 200, если все ок, в противном случае вернет код ошибки"
+      operationId: createUser
+      responses:
+        200:
+          description: "Operation completed!"
+  /user/<userId>:
+    put:
+      tags:
+        - UserController
+      summary: "Обновляет пользователя по id, указанный в схеме маршрута через [userId]"
+      description: "Возвращает 200, если все ок, в противном случае вернет код ошибки"
+      operationId: updateUser
       parameters:
-        - name: message
+        - name: userId
           in: path
           required: true
           schema:
@@ -62,7 +99,32 @@ paths:
       responses:
         200:
           description: "Operation completed!"
-components: { }
+    delete:
+      tags:
+        - UserController
+      summary: "Удаляет пользователя по id, указанном в схеме маршрута через [userId]"
+      description: "Возвращает 200, если все ок, в противном случае вернет код ошибки"
+      operationId: deleteUser
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: "Operation completed!"
+components:
+  schemas:
+    CreateOrderQueryDto:
+      type: object
+      properties:
+        price:
+          description: Order price
+          type: number
+          format: double
+      required:
+        - price
 tags:
-  - name: ApiService
-  - name: OpenApiService
+  - name: OrderController
+  - name: UserController

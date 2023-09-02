@@ -1,10 +1,16 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:server_side/src/common/authentication_exception.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';
 import 'package:shelf_router/shelf_router.dart';
 
+///
+/// http://localhost:8080/json
+/// http://localhost:8080/echo/somemessage
+/// http://localhost:8080/echo/somemessage/error
+///
 Future<void> main() async {
   final router = Router()
     ..get('/json', _jsonHandler)
@@ -16,7 +22,10 @@ Future<void> main() async {
 Future<void> _checkAuthentication(String? token) async {
   if (token?.contains('Bearer') ?? false) {
     //  some validation logic here
+    return;
   }
+
+  throw AuthenticationException();
 }
 
 Future<Response> _echoHandler(Request request) async {
@@ -25,6 +34,7 @@ Future<Response> _echoHandler(Request request) async {
   await _checkAuthentication(oauthToken);
 
   return Response.ok('$message\n');
+  return Response.forbidden('Request is not authorized!');
 }
 
 Future<Response> _jsonHandler(Request request) async {

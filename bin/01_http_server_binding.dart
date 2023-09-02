@@ -4,11 +4,13 @@ import 'dart:io';
 
 ///
 /// just Hello part in path
+/// http://localhost:8080/hello
 ///
 Future<void> main() async {
-  final server = await HttpServer.bind('0.0.0.0', 8080);
+  final server = await HttpServer.bind(InternetAddress.anyIPv4, 8080);
   await for (final request in server) {
     final uri = request.requestedUri;
+    final path = uri.path;
     final segments = uri.pathSegments;
     try {
       if (segments[0] != 'hello') {

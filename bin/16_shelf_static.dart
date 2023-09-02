@@ -1,11 +1,14 @@
 import 'dart:io';
 
-import 'package:server_side/src/15_api_service.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';
 import 'package:shelf_static/shelf_static.dart';
-import 'package:shelf_swagger_ui/shelf_swagger_ui.dart';
 
+///
+/// Статические ресурсы можем расшарить, указав некий фолдер, из которого
+/// мы будем отдавать ресурсы, например
+/// http://127.0.0.1:8080/resources/logo.png
+///
 Future<void> main() async {
   final pipeline = Pipeline()
       .addMiddleware(logRequests())

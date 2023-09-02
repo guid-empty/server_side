@@ -9,7 +9,7 @@ targets:
 
       shelf_open_api_generator:shelf_open_api_generator:
         options:
-          include_routes_in: 'lib/src/**_service.dart'
+          include_routes_in: 'lib/src/**_api_controller.dart'
           info_title: 'OpenApiService Demo Generation'
           info_description: 'OpenApiService Demo Description'
           info_terms_of_service: 'Terms of use'

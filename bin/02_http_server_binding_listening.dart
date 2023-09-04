@@ -11,7 +11,7 @@ Future<void> main() async {
     final uri = request.requestedUri;
     final segments = uri.pathSegments;
     try {
-      if (segments[0] != 'hello') {
+      if (segments[0] == 'hello') {
         final id = segments.length > 1 ? int.tryParse(segments[1]) : null;
 
         final response = {

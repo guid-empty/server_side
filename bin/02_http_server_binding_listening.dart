@@ -12,8 +12,6 @@ Future<void> main() async {
     final segments = uri.pathSegments;
     try {
       if (segments[0] != 'hello') {
-        request.response.statusCode = HttpStatus.badRequest;
-      } else {
         final id = segments.length > 1 ? int.tryParse(segments[1]) : null;
 
         final response = {
@@ -25,6 +23,8 @@ Future<void> main() async {
           'application/json',
         );
         request.response.write(jsonEncode(response));
+      } else {
+        request.response.statusCode = HttpStatus.badRequest;
       }
     } catch (e, s) {
       log('$e, $s');

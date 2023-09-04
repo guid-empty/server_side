@@ -13,11 +13,11 @@ Future<void> main() async {
     final path = uri.path;
     final segments = uri.pathSegments;
     try {
-      if (segments[0] != 'hello') {
-        request.response.statusCode = HttpStatus.badRequest;
-      } else {
+      if (segments[0] == 'hello') {
         final response = {'body': 'data'};
         request.response.write(jsonEncode(response));
+      } else {
+        request.response.statusCode = HttpStatus.badRequest;
       }
     } catch (e, s) {
       log('$e, $s');

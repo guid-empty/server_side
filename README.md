@@ -1,4 +1,9 @@
 ##  Server side examples 
+#   Andrey Smirnov / dushes_at_work contacts
+
+* https://twitter.com/dushesatwork
+* https://t.me/dushes_at_work
+* https://t.me/telequiz_online
 
 #   Notes
 https://www.openapis.org/

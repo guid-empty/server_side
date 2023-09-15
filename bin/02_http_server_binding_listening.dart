@@ -5,7 +5,6 @@ import 'dart:io';
 ///
 /// hello/<int> parsing scheme
 /// http://localhost:8080/hello/11
-/// http://localhost:8080/hello
 ///
 Future<void> main() async {
   final server = await HttpServer.bind(InternetAddress.anyIPv4, 8080);

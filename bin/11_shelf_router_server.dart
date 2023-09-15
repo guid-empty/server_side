@@ -8,14 +8,22 @@ import 'package:shelf_router/shelf_router.dart';
 ///
 /// http://localhost:8080/json
 /// http://localhost:8080/echo/somemessage
+/// http://localhost:8080/delete/<id>
 /// http://localhost:8080/echo/somemessage/error
 ///
 Future<void> main() async {
   final router = Router()
     ..get('/json', _jsonHandler)
+    ..delete('/delete/<id>', _deleteEntityHandler)
     ..get('/echo/<message>', _echoHandler);
 
   await serve(router, InternetAddress.anyIPv4, 8080);
+}
+
+Future<Response> _deleteEntityHandler(Request request) async {
+  final message = request.params['message'];
+
+  return Response.ok('$message\n');
 }
 
 Future<Response> _echoHandler(Request request) async {

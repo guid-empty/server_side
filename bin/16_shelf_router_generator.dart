@@ -14,7 +14,9 @@ Future<void> main() async {
       .add(OrderController().router)
       .handler;
 
-  final pipeline = Pipeline().addMiddleware(logRequests()).addHandler(handler);
+  final pipeline = Pipeline()
+      .addMiddleware(logRequests())
+      .addHandler(handler);
 
   await serve(pipeline, InternetAddress.anyIPv4, 8080);
 }

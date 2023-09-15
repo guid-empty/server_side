@@ -20,9 +20,10 @@ Future<void> main() async {
 }
 
 Future<Response> _echoHandler(Request request) async {
-  final message = request.params['message'];
   final oauthToken = request.headers[HttpHeaders.authorizationHeader];
   await _checkAuthentication(oauthToken);
+
+  final message = request.params['message'];
 
   return Response.ok('$message\n');
   return Response.forbidden('Request is not authorized!');

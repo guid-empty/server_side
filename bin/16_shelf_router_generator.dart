@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:server_side/src/15_domain_controller.dart';
+import 'package:server_side/src/16_domain_controller.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';
 
@@ -14,9 +14,7 @@ Future<void> main() async {
       .add(OrderController().router)
       .handler;
 
-  final pipeline = Pipeline()
-      .addMiddleware(logRequests())
-      .addHandler(handler);
+  final pipeline = Pipeline().addMiddleware(logRequests()).addHandler(handler);
 
   await serve(pipeline, InternetAddress.anyIPv4, 8080);
 }

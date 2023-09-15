@@ -19,15 +19,6 @@ Future<void> main() async {
   await serve(router, InternetAddress.anyIPv4, 8080);
 }
 
-Future<void> _checkAuthentication(String? token) async {
-  if (token?.contains('Bearer') ?? false) {
-    //  some validation logic here
-    return;
-  }
-
-  throw AuthenticationException();
-}
-
 Future<Response> _echoHandler(Request request) async {
   final message = request.params['message'];
   final oauthToken = request.headers[HttpHeaders.authorizationHeader];
@@ -35,6 +26,15 @@ Future<Response> _echoHandler(Request request) async {
 
   return Response.ok('$message\n');
   return Response.forbidden('Request is not authorized!');
+}
+
+Future<void> _checkAuthentication(String? token) async {
+  if (token?.contains('Bearer') ?? false) {
+    //  some validation logic here
+    return;
+  }
+
+  throw AuthenticationException();
 }
 
 Future<Response> _jsonHandler(Request request) async {

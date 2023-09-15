@@ -10,7 +10,6 @@ Future<void> main() async {
   final server = await HttpServer.bind(InternetAddress.anyIPv4, 8080);
   await for (final request in server) {
     final uri = request.requestedUri;
-    final path = uri.path;
     final segments = uri.pathSegments;
     try {
       if (segments[0] == 'hello') {

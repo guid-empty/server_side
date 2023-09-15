@@ -17,10 +17,14 @@ Future<void> main() async {
     ..get('/json', _jsonHandler)
     ..get('/echo/<message>', _echoHandler)
     ..delete('/delete/<id>', _deleteEntityHandler)
+    ..post('/archive', _archiveEntitiesHandler)
     ..put('/create/<name>', _createEntityHandler);
 
   await serve(router, InternetAddress.anyIPv4, 8080);
 }
+
+Future<Response> _archiveEntitiesHandler(Request request) async =>
+    Response.ok('');
 
 Future<Response> _createEntityHandler(Request request) async {
   final message = request.params['name'];

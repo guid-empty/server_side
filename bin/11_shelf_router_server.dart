@@ -17,8 +17,8 @@ Future<void> main() async {
     ..get('/json', _jsonHandler)
     ..get('/echo/<message>', _echoHandler)
     ..delete('/delete/<id>', _deleteEntityHandler)
-    ..post('/archive', _archiveEntitiesHandler)
-    ..put('/create/<name>', _createEntityHandler);
+    ..put('/create/<name>', _createEntityHandler)
+    ..post('/archive', _archiveEntitiesHandler);
 
   await serve(router, InternetAddress.anyIPv4, 8080);
 }

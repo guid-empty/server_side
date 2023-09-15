@@ -15,9 +15,9 @@ import 'package:shelf_router/shelf_router.dart';
 Future<void> main() async {
   final router = Router()
     ..get('/json', _jsonHandler)
+    ..get('/echo/<message>', _echoHandler)
     ..delete('/delete/<id>', _deleteEntityHandler)
-    ..put('/create/<name>', _createEntityHandler)
-    ..get('/echo/<message>', _echoHandler);
+    ..put('/create/<name>', _createEntityHandler);
 
   await serve(router, InternetAddress.anyIPv4, 8080);
 }
